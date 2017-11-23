@@ -25,7 +25,7 @@
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li *ngIf="isLoggedIn()" class="nav-item">
                 <a class="nav-link"
                    routerLink="/user/info"
                    routerLinkActive="active">
