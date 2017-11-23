@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {User} from "../models/user";
+import {UserService} from "../services/user.service";
 
 @Component({
     selector: 'home-page',
@@ -7,5 +9,6 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
     constructor() {}
+
 
 }

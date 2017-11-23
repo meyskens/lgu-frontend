@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/map");
+var app_constants_1 = require("../app.constants");
 var AuthenticationService = /** @class */ (function () {
     function AuthenticationService(http) {
         this.http = http;
@@ -21,7 +22,8 @@ var AuthenticationService = /** @class */ (function () {
     }
     AuthenticationService.prototype.login = function (username, password) {
         var _this = this;
-        return this.http.post('/api/authenticate', JSON.stringify({ username: username, password: password }))
+        //noinspection TypeScriptValidateTypes
+        return this.http.post(app_constants_1._BACK_END_URL + '/v1/login', ({ email: username, password: password }))
             .map(function (response) {
             // login successful if there's a jwt token in the response
             var token = response.json() && response.json().token;
@@ -29,7 +31,7 @@ var AuthenticationService = /** @class */ (function () {
                 // set token property
                 _this.token = token;
                 // store username and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
+                localStorage.setItem('currentUser', JSON.stringify({ email: username, token: token }));
                 // return true to indicate successful login
                 return true;
             }
@@ -43,6 +45,10 @@ var AuthenticationService = /** @class */ (function () {
         // clear token remove user from local storage to log user out
         this.token = null;
         localStorage.removeItem('currentUser');
+    };
+    AuthenticationService.prototype.isLoggedIn = function () {
+        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        return currentUser != null;
     };
     AuthenticationService = __decorate([
         core_1.Injectable(),

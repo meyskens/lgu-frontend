@@ -11,11 +11,25 @@
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li *ngIf="!isLoggedIn()" class="nav-item">
                 <a class="nav-link"
                    routerLink="/login"
                    routerLinkActive="active">
-                  Sign in
+                    Sign in
+                </a>
+            </li>
+            <li *ngIf="isLoggedIn()" class="nav-item">
+                <a class="nav-link" (click)="logout()"
+                   routerLinkActive="active">
+                    Sign out
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link"
+                   routerLink="/user/info"
+                   routerLinkActive="active">
+                    Profile
                 </a>
             </li>
 

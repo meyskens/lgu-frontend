@@ -3,8 +3,9 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map'
 
-import { AuthenticationService } from './index';
-import { User } from '../_models/index';
+import { AuthenticationService } from '../services/authentication.service';
+import { User } from '../models/index';
+import {_BACK_END_URL} from "../app.constants";
 
 @Injectable()
 export class UserService {
@@ -19,7 +20,16 @@ export class UserService {
         let options = new RequestOptions({ headers: headers });
 
         // get users from api
-        return this.http.get('/api/users', options)
+        //noinspection TypeScriptValidateTypes
+        return this.http.get(_BACK_END_URL + '/v1/user/', options)
+            .map((response: Response) => response.json());
+    }
+
+    getUserInfo(): Observable<User[]> {
+        let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.get(_BACK_END_URL + '/v1/user/info', options)
             .map((response: Response) => response.json());
     }
 }

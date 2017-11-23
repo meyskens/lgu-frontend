@@ -12,7 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/map");
-var index_1 = require("./index");
+var authentication_service_1 = require("../services/authentication.service");
+var app_constants_1 = require("../app.constants");
 var UserService = /** @class */ (function () {
     function UserService(http, authenticationService) {
         this.http = http;
@@ -23,13 +24,20 @@ var UserService = /** @class */ (function () {
         var headers = new http_1.Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
         var options = new http_1.RequestOptions({ headers: headers });
         // get users from api
-        return this.http.get('/api/users', options)
+        //noinspection TypeScriptValidateTypes
+        return this.http.get(app_constants_1._BACK_END_URL + '/v1/user/', options)
+            .map(function (response) { return response.json(); });
+    };
+    UserService.prototype.getUserInfo = function () {
+        var headers = new http_1.Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
+        var options = new http_1.RequestOptions({ headers: headers });
+        return this.http.get(app_constants_1._BACK_END_URL + '/v1/user/info', options)
             .map(function (response) { return response.json(); });
     };
     UserService = __decorate([
         core_1.Injectable(),
         __metadata("design:paramtypes", [http_1.Http,
-            index_1.AuthenticationService])
+            authentication_service_1.AuthenticationService])
     ], UserService);
     return UserService;
 }());
