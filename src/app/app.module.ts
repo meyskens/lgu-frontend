@@ -4,7 +4,7 @@ import {RouterModule} from '@angular/router';
 
 
 import {AppComponent} from './app.component';
-import {RegisterComponent} from './account/register/register.component';
+import {AuthModule} from './auth/auth.module';
 import {HomeModule} from './home/home.module';
 
 import {
@@ -18,12 +18,12 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
 @NgModule({
     declarations: [
         AppComponent,
-        RegisterComponent,
         FooterComponent,
         HeaderComponent
     ],
     imports: [
         BrowserModule,
+        AuthModule,
         SharedModule,
         HomeModule,
         rootRouting,
