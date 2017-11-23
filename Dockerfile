@@ -1,9 +1,9 @@
-FROM node:latest as build 
+FROM node:6 as build 
 
 COPY ./ /frontend
 WORKDIR /frontend
 
-USER node
+USER root
 
 RUN npm install -g @angular/cli
 RUN npm install
