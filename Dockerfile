@@ -3,6 +3,8 @@ FROM node:latest as build
 COPY ./ /frontend
 WORKDIR /frontend
 
+USER node
+
 RUN npm install -g @angular/cli
 RUN npm install
 RUN ng build
