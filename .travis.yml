@@ -11,7 +11,7 @@ before_script:
 - sudo apt-get -y install qemu-user-static
 - docker run --rm --privileged multiarch/qemu-user-static:register
 script:
-- docker build -t reg.dispatch.sh/maartje/lgu.dispatch.sh ./
+- travis_wait docker build -t reg.dispatch.sh/maartje/lgu.dispatch.sh ./
 after_success:
 - if [ "$TRAVIS_BRANCH" == "master" ]; then docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
     reg.dispatch.sh; docker push reg.dispatch.sh/maartje/lgu.dispatch.sh;
