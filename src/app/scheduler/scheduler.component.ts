@@ -48,8 +48,8 @@ export class SchedulerComponent implements AfterViewInit {
             start: new Date(reservatie.from),
             end: new Date(reservatie.to)
           };
-          this.scheduler.addAppointment(appointment)
-          console.log(appointment);
+          this.scheduler.addAppointment(appointment);
+          console.log(this.scheduler.getAppointments());
         }
         console.log("Finished appointment adding");
       });
@@ -63,8 +63,8 @@ export class SchedulerComponent implements AfterViewInit {
         { name: 'location', type: 'string' },
         { name: 'subject', type: 'string' },
         { name: 'calendar', type: 'string' },
-        { name: 'start', type: 'date' },
-        { name: 'end', type: 'date' }
+        { name: 'start', type: 'date', format: 'dd/MM/yyyy' },
+        { name: 'end', type: 'date', format: 'dd/MM/yyyy' }
       ],
       id: 'id',
       localData: this.appointments
