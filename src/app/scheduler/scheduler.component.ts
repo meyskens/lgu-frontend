@@ -110,10 +110,10 @@ export class SchedulerComponent implements AfterViewInit {
       dataField: "calendar",
       source: new jqx.dataAdapter(this.source)
     };
+  view: 'timelineWeekView';
   views: any[] =
     [
-      'dayView',
-      'weekView',
-      'monthView'
+      { type: 'timelineWeekView', appointmentHeight: 40, timeSlotWidth: 30, showWeekends: true, timeRuler: { scale: "quarterHour" } },
+      { type: 'timelineDayView', appointmentHeight: 40, timeSlotWidth: 30, showWeekends: true, timeRuler: { scale: "quarterHour" } }
     ];
 }
