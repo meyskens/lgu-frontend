@@ -43,8 +43,16 @@
                   </a>
                 </li>
 
-            </ul>
-        </div>
+            <!--<li class="nav-item">-->
+            <li *ngIf="isLoggedIn() && isAdmin()" class="nav-item">
+                <a class="nav-link"
+                   routerLink="/room"
+                   routerLinkActive="active">
+                    Room Management
+                </a>
+            </li>
+
+        </ul>
 
     </div>
 </nav>
