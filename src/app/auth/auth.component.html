@@ -25,7 +25,17 @@
               {{ title }} Login
             </button>
           </fieldset>
+
         </form>
+
+        <li *ngIf="error != ''" class="nav-item">
+          <a class="nav-link"
+             routerLink="/room"
+             routerLinkActive="active">
+            {{error}}
+          </a>
+        </li>
+
       </div>
 
     </div>
