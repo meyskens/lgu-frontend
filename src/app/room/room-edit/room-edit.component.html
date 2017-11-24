@@ -1,0 +1,21 @@
+<div class="room-edit-page">
+    <div class="panel panel-primary">
+        <div class="panel-body">
+            <input type="text" [(ngModel)]="room.name"
+                   placeholder="Room Name" style="width: 25%;">
+            <input type="text" [(ngModel)]="room.description"
+                   placeholder="Room Description" style="width: 50%;">
+            <input type="number" [(ngModel)]="room.width"
+                   placeholder="Room Width" style="width: 50%;">
+            <input type="number" [(ngModel)]="room.height"
+                   placeholder="Room Height" style="width: 50%;">
+            <input type="number" [(ngModel)]="room.length"
+                   placeholder="Room Length" style="width: 50%;">
+            <input type="text" [(ngModel)]="room.location"
+                   placeholder="Room Location" style="width: 50%;">
+            <input type="text" [(ngModel)]="room.description"
+                   placeholder="Room Description" style="width: 50%;">
+            <button (click)="onSave()" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+</div>

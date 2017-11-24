@@ -1,6 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule, ModuleWithProviders} from '@angular/core';
 import {RouterModule} from '@angular/router';
+import 'rxjs/add/operator/toPromise'
 
 import {jqxSchedulerComponent} from 'jqwidgets-framework/jqwidgets-ts/angular_jqxscheduler';
 
@@ -34,6 +35,7 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
         InfoModule,
         AuthModule,
         RoomModule,
+
         SchedulerModule
     ],
     providers: [AuthenticationService, UserService, RoomService],

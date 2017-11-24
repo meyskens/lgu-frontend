@@ -1,7 +1,7 @@
 ﻿import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs';
-import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/map';
 
 import { AuthenticationService } from '../services/authentication.service';
 import {_BACK_END_URL} from "../app.constants";
@@ -9,9 +9,24 @@ import {Room} from "../models/room";
 
 @Injectable()
 export class RoomService {
+    errorHandler = error => console.error('BookmarkService error', error);
+    error: string = '';
+
     constructor(
         private http: Http,
-        private authenticationService: AuthenticationService) {
+        private authenticationService: AuthenticationService) {}
+
+    getRoomss(){
+        let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
+        // let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
+        let options = new RequestOptions({ headers: headers });
+
+
+        //noinspection TypeScriptUnresolvedFunction
+        return this.http.get(_BACK_END_URL + '/v1/rooms/', options)
+            .toPromise()
+            .then(response => response.json())
+            .catch(error => this.error = error)
     }
 
     getRooms(): Observable<Room[]> {
@@ -26,6 +41,7 @@ export class RoomService {
             .map((response: Response) => response.json());
     }
 
+
     getRoomInfo(): Observable<Room[]> {
         let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
         let options = new RequestOptions({ headers: headers });
@@ -33,5 +49,24 @@ export class RoomService {
         //noinspection TypeScriptValidateTypes
         return this.http.get(_BACK_END_URL + '/v1/room/info', options)
             .map((response: Response) => response.json());
+    }
+
+    addRoom(room) {
+        const json = (room);
+        //noinspection TypeScriptUnresolvedFunction
+        return this.http.post(_BACK_END_URL + `/v1/admin/rooms`, json)
+            .toPromise()
+            .catch(this.errorHandler);
+    }
+
+    updateRoom(room) {
+        const json = ({
+            title: room.title,
+            url: room.url
+        });
+        //noinspection TypeScriptUnresolvedFunction
+        return this.http.patch(_BACK_END_URL + `/v1/admin/rooms${room.id}`, json)
+            .toPromise()
+            .catch(this.errorHandler);
     }
 }
