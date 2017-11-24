@@ -29,6 +29,8 @@ export class UserService {
         let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
         let options = new RequestOptions({ headers: headers });
 
+
+        //noinspection TypeScriptValidateTypes
         return this.http.get(_BACK_END_URL + '/v1/user/info', options)
             .map((response: Response) => response.json());
     }

@@ -1,10 +1,9 @@
-﻿export class User {
+﻿export class Room {
     _id: string;
-    username: string;
-    password: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    isAdmin: boolean;
-    phone: string;
+    name: String;
+    width: Number;
+    height: Number;
+    length: Number;
+    location: String;
+    description: String;
 }

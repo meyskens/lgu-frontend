@@ -2,25 +2,25 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared';
 
-import { AuthComponent } from './auth.component';
+import { RoomComponent } from './room.component';
 
 
-const authRouting: ModuleWithProviders = RouterModule.forChild([
+const roomRouting: ModuleWithProviders = RouterModule.forChild([
   {
-    path: 'login',
-    component: AuthComponent
+    path: 'room',
+    component: RoomComponent
   }
 ]);
 
 @NgModule({
   imports: [
-    authRouting,
+    roomRouting,
     SharedModule
   ],
   declarations: [
-    AuthComponent
+    RoomComponent
   ],
 
   providers: []
 })
-export class AuthModule {}
+export class RoomModule {}

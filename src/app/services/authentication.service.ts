@@ -46,4 +46,9 @@ export class AuthenticationService {
         let currentUser = JSON.parse(localStorage.getItem('currentUser'));
         return currentUser != null;
     }
+
+    isAdmin() {
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        return currentUser.isAdmin;
+    }
 }

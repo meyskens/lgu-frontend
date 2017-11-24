@@ -7,7 +7,6 @@ import {jqxSchedulerComponent} from 'jqwidgets-framework/jqwidgets-ts/angular_jq
 import {AppComponent} from './app.component';
 import {AuthModule} from './auth/auth.module';
 import {HomeModule} from './home/home.module';
-
 import {
     SharedModule,
     FooterComponent,
@@ -16,6 +15,8 @@ import {
 import {AuthenticationService, UserService} from "./services/index";
 import {InfoModule} from "./auth/info/info.module";
 import {SchedulerModule} from "./scheduler/scheduler.module";
+import {RoomModule} from "./room/room.module";
+import {RoomService} from "./services/room.service";
 
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: true });
 
@@ -27,14 +28,15 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     ],
     imports: [
         BrowserModule,
-        AuthModule,
         SharedModule,
         HomeModule,
         rootRouting,
         InfoModule,
+        AuthModule,
+        RoomModule,
         SchedulerModule
     ],
-    providers: [AuthenticationService, UserService],
+    providers: [AuthenticationService, UserService, RoomService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

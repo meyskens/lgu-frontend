@@ -2,23 +2,23 @@ import {ModuleWithProviders, NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {SharedModule} from '../../shared';
 
-import {InfoComponent} from './info.component';
+import {RoomInfoComponent} from './room-info.component';
 
 
-const infoRouting: ModuleWithProviders = RouterModule.forChild([
+const roomInfoRouting: ModuleWithProviders = RouterModule.forChild([
     {
-        path: 'user/info',
-        component: InfoComponent
+        path: 'room/info',
+        component: RoomInfoComponent
     }
 ]);
 
 @NgModule({
     imports: [
-        infoRouting,
+        roomInfoRouting,
         SharedModule
     ],
     declarations: [
-        InfoComponent
+        RoomInfoComponent
     ],
 
     providers: []

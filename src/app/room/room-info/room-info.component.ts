@@ -2,17 +2,17 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 
-import {User} from "../../models/user";
-import {UserService} from "../../services/user.service";
+import {Room} from "../../models/room";
+import {RoomService} from "../../services/room.service";
 
 
 @Component({
     //modelId: module.id,
-    selector: 'app-auth-page',
+    selector: 'room-info-page',
     templateUrl: 'info.component.html'
 })
-export class InfoComponent implements OnInit {
-    user: User[] = [];
+export class RoomInfoComponent implements OnInit {
+    room: Room[] = [];
 
 
     model: any = {};
@@ -22,23 +22,17 @@ export class InfoComponent implements OnInit {
     authForm: FormGroup;
 
     constructor(private route: ActivatedRoute,
-                private userService: UserService,
-                private fb: FormBuilder) {
-        // use FormBuilder to create a form group
-        this.authForm = this.fb.group({
-            'email': ['', Validators.required],
-            'password': ['', Validators.required]
-        });
-    }
+                private roomService: RoomService,
+                private fb: FormBuilder) {}
 
     ngOnInit() {
         this.route.url.subscribe(data => {
             // Set a title for the page
             this.title = 'User Info';
 
-            this.userService.getUserInfo()
-                .subscribe(user => {
-                    this.user = user;
+            this.roomService.getRoomInfo()
+                .subscribe(room => {
+                    this.room = room;
                 });
         });
     }
