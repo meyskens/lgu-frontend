@@ -1,6 +1,10 @@
 ///<reference path="../../../node_modules/@angular/router/src/config.d.ts"/>
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import { jqxSchedulerComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxscheduler';
+import {Reservatie} from "../models/reservatie";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {ActivatedRoute} from "@angular/router";
+import {SchedulerService} from "../services/scheduler.service";
 
 @Component({
   selector: 'app-scheduler-page',
@@ -9,73 +13,46 @@ import { jqxSchedulerComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_
 
 export class SchedulerComponent implements AfterViewInit {
   @ViewChild('schedulerReference') scheduler: jqxSchedulerComponent;
+
+  reservaties: Reservatie[] = [];
+
+  model: any = {};
+  error = '';
+  title: String = '';
+  isSubmitting: boolean = false;
+  appointments = new Array();
+
+  constructor(private route: ActivatedRoute,
+              private schedulerService: SchedulerService) {}
+
   ngAfterViewInit(): void {
-    this.scheduler.ensureAppointmentVisible('id1');
+    this.route.url.subscribe(data => {
+      // Set a title for the page
+      this.title = 'Reservaties';
+      this.generateAppointments();
+    });
   }
 
   generateAppointments(): any {
-    let appointments = new Array();
-    let appointment1 = {
-      id: "id1",
-      description: "George brings projector for presentations.",
-      location: "",
-      subject: "Quarterly Project Review Meeting",
-      calendar: "Room 1",
-      start: new Date(2016, 10, 23, 9, 0, 0),
-      end: new Date(2016, 10, 23, 16, 0, 0)
-    };
-    let appointment2 = {
-      id: "id2",
-      description: "",
-      location: "",
-      subject: "IT Group Mtg.",
-      calendar: "Room 2",
-      start: new Date(2016, 10, 24, 10, 0, 0),
-      end: new Date(2016, 10, 24, 15, 0, 0)
-    };
-    let appointment3 = {
-      id: "id3",
-      description: "",
-      location: "",
-      subject: "Course Social Media",
-      calendar: "Room 3",
-      start: new Date(2016, 10, 27, 11, 0, 0),
-      end: new Date(2016, 10, 27, 13, 0, 0)
-    };
-    let appointment4 = {
-      id: "id4",
-      description: "",
-      location: "",
-      subject: "New Projects Planning",
-      calendar: "Room 2",
-      start: new Date(2016, 10, 23, 16, 0, 0),
-      end: new Date(2016, 10, 23, 18, 0, 0)
-    };
-    let appointment5 = {
-      id: "id5",
-      description: "",
-      location: "",
-      subject: "Interview with James",
-      calendar: "Room 1",
-      start: new Date(2016, 10, 25, 15, 0, 0),
-      end: new Date(2016, 10, 25, 17, 0, 0)
-    };
-    let appointment6 = {
-      id: "id6",
-      description: "",
-      location: "",
-      subject: "Interview with Nancy",
-      calendar: "Room 4",
-      start: new Date(2016, 10, 26, 14, 0, 0),
-      end: new Date(2016, 10, 26, 16, 0, 0)
-    };
-    appointments.push(appointment1);
-    appointments.push(appointment2);
-    appointments.push(appointment3);
-    appointments.push(appointment4);
-    appointments.push(appointment5);
-    appointments.push(appointment6);
-    return appointments;
+    this.schedulerService.getReservaties()
+      .subscribe(reservaties => {
+        this.reservaties = reservaties;
+        for (let reservatie of this.reservaties) {
+          console.log("created appointment object");
+          let appointment = {
+            id: reservatie._id,
+            description: "bezet",
+            location: "to do",
+            subject: "to do",
+            calendar: "to do",
+            start: new Date(reservatie.from),
+            end: new Date(reservatie.to)
+          };
+          this.scheduler.addAppointment(appointment)
+          console.log(appointment);
+        }
+        console.log("Finished appointment adding");
+      });
   };
   source: any =
     {
@@ -90,10 +67,10 @@ export class SchedulerComponent implements AfterViewInit {
         { name: 'end', type: 'date' }
       ],
       id: 'id',
-      localData: this.generateAppointments()
+      localData: this.appointments
     };
   dataAdapter: any = new jqx.dataAdapter(this.source);
-  date: any = new jqx.date(2016, 11, 23);
+  date: any = new jqx.date();
   appointmentDataFields: any =
     {
       from: "start",
@@ -113,7 +90,7 @@ export class SchedulerComponent implements AfterViewInit {
   view: 'timelineWeekView';
   views: any[] =
     [
-      { type: 'timelineWeekView', appointmentHeight: 40, timeSlotWidth: 30, showWeekends: true, timeRuler: { scale: "quarterHour" } },
-      { type: 'timelineDayView', appointmentHeight: 40, timeSlotWidth: 30, showWeekends: true, timeRuler: { scale: "quarterHour" } }
+      { type: 'timelineWeekView', appointmentHeight: 40, timeSlotWidth: 30, showWeekends: true, timeRuler: { scale: "quarterHour", scaleStartHour: 9, scaleEndHour: 22 } },
+      { type: 'timelineDayView', appointmentHeight: 40, timeSlotWidth: 30, showWeekends: true, timeRuler: { scale: "quarterHour", scaleStartHour: 9, scaleEndHour: 22 } }
     ];
 }

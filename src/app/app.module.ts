@@ -16,6 +16,7 @@ import {
 import {AuthenticationService, UserService} from "./services/index";
 import {InfoModule} from "./auth/info/info.module";
 import {SchedulerModule} from "./scheduler/scheduler.module";
+import {SchedulerService} from "./services/scheduler.service";
 
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: true });
 
@@ -34,7 +35,7 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
         InfoModule,
         SchedulerModule
     ],
-    providers: [AuthenticationService, UserService],
+    providers: [AuthenticationService, UserService, SchedulerService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
