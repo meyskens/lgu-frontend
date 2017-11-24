@@ -34,7 +34,6 @@ export class AuthComponent implements OnInit {
     submitForm() {
         const credentials = this.authForm.value;
 
-
         this.isSubmitting = true;
         this.authenticationService.login(credentials.email, credentials.password)
             .subscribe(result => {

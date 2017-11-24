@@ -18,6 +18,10 @@ export class HeaderComponent {
         return this.auth.isLoggedIn();
     }
 
+    isAdmin() {
+        return this.auth.isAdmin();
+    }
+
     logout() {
         this.route.url.subscribe(data => {
             // Set a title for the page

@@ -20,12 +20,15 @@ export class AuthenticationService {
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let token = response.json() && response.json().token;
+                let isAdmin = response.json().isAdmin;
+                // let isAdmin = response.json().isAdmin;
                 if (token) {
                     // set token property
                     this.token = token;
 
                     // store username and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify({email: username, token: token}));
+                    localStorage.setItem('isAdmin', isAdmin);
 
                     // return true to indicate successful login
                     return true;
@@ -40,10 +43,16 @@ export class AuthenticationService {
         // clear token remove user from local storage to log user out
         this.token = null;
         localStorage.removeItem('currentUser');
+        localStorage.removeItem('isAdmin');
     }
 
     isLoggedIn() {
         let currentUser = JSON.parse(localStorage.getItem('currentUser'));
         return currentUser != null;
+    }
+
+    isAdmin() {
+        let isAdmin = JSON.parse(localStorage.getItem('isAdmin'));
+        return isAdmin;
     }
 }

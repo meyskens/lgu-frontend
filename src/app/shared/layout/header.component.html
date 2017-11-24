@@ -7,44 +7,53 @@
             <ul class="nav navbar-nav pull-xs-right">
 
                 <li class="nav-item">
-                  <a class="nav-link"
-                     routerLink="/">
-                    Home
-                  </a>
+                    <a class="nav-link"
+                       routerLink="/">
+                        Home
+                    </a>
                 </li>
 
                 <li *ngIf="!isLoggedIn()" class="nav-item">
-                  <a class="nav-link"
-                     routerLink="/login"
-                     routerLinkActive="active">
-                    Sign in
-                  </a>
+                    <a class="nav-link"
+                       routerLink="/login"
+                       routerLinkActive="active">
+                        Sign in
+                    </a>
                 </li>
                 <li *ngIf="isLoggedIn()" class="nav-item">
-                  <a class="nav-link" (click)="logout()"
-                     routerLinkActive="active">
-                    Sign out
-                  </a>
+                    <a class="nav-link" (click)="logout()"
+                       routerLinkActive="active">
+                        Sign out
+                    </a>
                 </li>
 
                 <li *ngIf="isLoggedIn()" class="nav-item">
-                  <a class="nav-link"
-                     routerLink="/user/info"
-                     routerLinkActive="active">
-                    Profile
-                  </a>
+                    <a class="nav-link"
+                       routerLink="/user/info"
+                       routerLinkActive="active">
+                        Profile
+                    </a>
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link"
-                     routerLink="/reserveren"
-                     routerLinkActive="active">
-                    Reserveren
-                  </a>
+                    <a class="nav-link"
+                       routerLink="/reserveren"
+                       routerLinkActive="active">
+                        Reserveren
+                    </a>
+                </li>
+
+                <!--<li class="nav-item">-->
+                <li *ngIf="isLoggedIn() && isAdmin()" class="nav-item">
+                    <a class="nav-link"
+                       routerLink="/room"
+                       routerLinkActive="active">
+                        Room Management
+                    </a>
                 </li>
 
             </ul>
-        </div>
 
+        </div>
     </div>
 </nav>
