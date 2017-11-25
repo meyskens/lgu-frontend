@@ -1,55 +1,55 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
-
+import { Component } from '@angular/core';
 import {RoomService} from "../services/room.service";
-import {Room} from "../models/room";
-
 
 @Component({
-    //modelId: module.id,
-    selector: 'room-page',
-    templateUrl: './room.component.html'
+    selector: 'room-app',
+    template: `
+    <room-edit [room]="editableRoom"
+      (save)="save($event)" (clear)="clear()"></room-edit>
+    <room-list [rooms]="rooms"
+      (edit)="edit($event)" (remove)="remove($event)"></room-list>
+  `,
 })
-export class RoomComponent implements OnInit {
-    rooms: Room[] = [];
-    model: any = {};
-    error = '';
-    title: String = 'Room Management';
-    isSubmitting: boolean = false;
-    authForm: FormGroup;
+export class RoomComponent {
 
-    constructor(private route: ActivatedRoute,
-                private roomService: RoomService,
-                private fb: FormBuilder) {
+    rooms = [];
+    editableRoom = {};
+
+    constructor(private roomService: RoomService) {
+        roomService.errorHandler = error =>
+            window.alert('Oops! The server request failed.');
+        this.reload();
     }
 
-    ngOnInit() {
-        this.route.url.subscribe(data => {
-            // Set a title for the page
-            this.title = 'Room Management';
-
-            this.roomService.getRooms()
-                .subscribe(rooms => {
-                    this.rooms = rooms;
-                });
-        });
+    clear() {
+        this.editableRoom = {};
     }
 
-    // submitForm() {
-    //     const credentials = this.authForm.value;
-    //
-    //
-    //     this.isSubmitting = true;
-    //     this.authenticationService.login(credentials.email, credentials.password)
-    //         .subscribe(result => {
-    //             if (result === true) {
-    //                 this.router.navigate(['/']);
-    //             } else {
-    //                 this.error = 'Username or password is incorrect';
-    //                 this.isSubmitting = false;
-    //             }
-    //         });
-    // }
+    edit(room) {
+        //noinspection TypeScriptUnresolvedFunction
+        this.editableRoom = Object.assign({}, room);
+    }
+
+    remove(room) {
+        this.roomService.removeRoom(room)
+            .then(() => this.reload());
+    }
+
+    save(room) {
+        if (room._id) {
+            this.roomService.updateRoom(room)
+                .then(() => this.reload());
+        } else {
+            this.roomService.addRoom(room)
+                .then(() => this.reload());
+        }
+        this.clear();
+    }
+
+    private reload() {
+        //noinspection TypeScriptUnresolvedFunction
+        return this.roomService.getRoomss()
+            .then(rooms => this.rooms = rooms);
+    }
+
 }
-
