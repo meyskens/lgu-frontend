@@ -2,6 +2,10 @@
   <div class="container page">
     <jqxScheduler #schedulerReference
                   [date]="date" [width]="'100%'" [height]="800" [source]="dataAdapter" [showLegend]="true" [view]="view"
+                  [editDialogCreate]="editDialogCreate"
+                  [editDialogOpen]="editDialogOpen"
+                  [editDialogClose]="editDialogClose"
+                  [editDialogKeyDown]="editDialogKeyDown"
                   [appointmentDataFields]="appointmentDataFields" [resources]="resources" [views]="views">
     </jqxScheduler>
   </div>

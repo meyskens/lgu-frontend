@@ -1,9 +1,9 @@
 ﻿export class Room {
     _id: string;
-    name: String;
+    name: string;
     width: Number;
     height: Number;
     length: Number;
-    location: String;
-    description: String;
+    location: string;
+    description: string;
 }
