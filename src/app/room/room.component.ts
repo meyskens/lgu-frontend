@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, EventEmitter, Output} from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 
@@ -17,7 +17,7 @@ export class RoomComponent implements OnInit {
     roomss: Room[] = [];
     editableRoom = {};
 
-
+    @Output() remove = new EventEmitter();
 
     model: any = {};
     error = '';
@@ -28,9 +28,8 @@ export class RoomComponent implements OnInit {
     constructor(private route: ActivatedRoute,
                 private roomService: RoomService,
                 private fb: FormBuilder) {
-        this.roomService.getRoomss()
-            .then(roomss => console.info(roomss));
-            // .then(rooms => console.info(rooms));
+
+        this.reloadRoomss();
     }
 
     ngOnInit() {
@@ -38,6 +37,7 @@ export class RoomComponent implements OnInit {
             // Set a title for the page
             this.title = 'Room Management';
 
+            // this.reloadRoomss();
             this.roomService.getRooms()
                 .subscribe(rooms => {
                     this.rooms = rooms;
@@ -48,10 +48,10 @@ export class RoomComponent implements OnInit {
     save(room) {
         if (room.id) {
             this.roomService.updateRoom(room)
-                .then(() => this.reload());
+                .then(() => this.reloadRoomss());
         } else {
             this.roomService.addRoom(room)
-                .then(() => this.reload());
+                .then(() => this.reloadRoomss());
         }
         this.clear();
     }
@@ -60,9 +60,20 @@ export class RoomComponent implements OnInit {
         this.editableRoom = {};
     }
 
-    private reload() {
+    private reloadRoomss() {
         return this.roomService.getRoomss()
             .then(roomss => this.roomss = roomss);
+        // .then(rooms => console.info(rooms));
+    }
+
+
+    removeRoom(room) {
+        this.roomService.removeRoom(room)
+            .then(() => this.reloadRoomss());
+    }
+
+    onRemoveRoom(room) {
+        this.remove.emit(room);
     }
 
     // submitForm() {

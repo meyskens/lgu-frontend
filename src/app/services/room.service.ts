@@ -9,7 +9,7 @@ import {Room} from "../models/room";
 
 @Injectable()
 export class RoomService {
-    errorHandler = error => console.error('BookmarkService error', error);
+    errorHandler = error => console.error('RoomService error', error);
     error: string = '';
 
     constructor(
@@ -52,20 +52,37 @@ export class RoomService {
     }
 
     addRoom(room) {
+        let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
+        let options = new RequestOptions({ headers: headers });
+
         const json = (room);
         //noinspection TypeScriptUnresolvedFunction
-        return this.http.post(_BACK_END_URL + `/v1/admin/rooms`, json)
+        return this.http.post(_BACK_END_URL + `/v1/admin/rooms`, json, options)
             .toPromise()
             .catch(this.errorHandler);
     }
 
     updateRoom(room) {
+        let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
+        let options = new RequestOptions({ headers: headers });
+
         const json = ({
             title: room.title,
             url: room.url
         });
         //noinspection TypeScriptUnresolvedFunction
-        return this.http.patch(_BACK_END_URL + `/v1/admin/rooms${room.id}`, json)
+        return this.http.patch(_BACK_END_URL + `/v1/admin/rooms${room.id}`, json, options)
+            .toPromise()
+            .catch(this.errorHandler);
+    }
+
+    removeRoom(room){
+        let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
+        let options = new RequestOptions({ headers: headers });
+
+        // const json = (room);
+        //noinspection TypeScriptUnresolvedFunction
+        return this.http.delete(_BACK_END_URL + `/v1/admin/rooms/` + room._id, options)
             .toPromise()
             .catch(this.errorHandler);
     }

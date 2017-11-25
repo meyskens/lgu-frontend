@@ -1,14 +1,10 @@
 <div class="room-page">
     <div class="container page">
 
-        <room-edit-page (save)="save($event)"></room-edit-page>
-
-        <room-list-page></room-list-page>
-
         <div class="panel panel-primary">
-
             <div class="panel panel-default">
                 <h1 class="text-xs-center">{{ title }}</h1>
+                <h1 class="text-xs-center">Tadaaaaaaaa</h1>
                 <table class="table table-striped">
                     <tr *ngFor="let room of rooms">
                         <td (remove)="removeRoom($event)">
@@ -23,20 +19,7 @@
                 <br/>
                 <br/>
                 {{rooms | json}}
-
             </div>
-
-            <!--<div class="panel-body">-->
-                <!--<div class="row">-->
-                    <!--<div class="col-md-6 offset-md-3 col-xs-12">-->
-                        <!--<h1 class="text-xs-center">{{ title }}</h1>-->
-
-                        <!--<li *ngFor="let room of rooms">-->
-                            <!--{{ room.name }} - {{room.description}}-->
-                        <!--</li>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
         </div>
     </div>
 </div>

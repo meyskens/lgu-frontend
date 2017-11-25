@@ -5,6 +5,7 @@ import {SharedModule} from '../shared';
 import {RoomComponent} from './room.component';
 import {RoomEditComponent} from "./room-edit/room-edit.component";
 import {RoomEditModule} from "./room-edit/room-edit.module";
+import {RoomListComponent} from "./room-list/room-list.component";
 
 
 const roomRouting: ModuleWithProviders = RouterModule.forChild([
@@ -22,7 +23,8 @@ const roomRouting: ModuleWithProviders = RouterModule.forChild([
     ],
     declarations: [
         RoomComponent,
-        RoomEditComponent
+        RoomEditComponent,
+        RoomListComponent
     ],
 
     providers: [RoomEditModule]

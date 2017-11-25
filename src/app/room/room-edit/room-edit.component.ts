@@ -8,8 +8,8 @@ export class RoomEditComponent {
 
     @Input() room = {};
 
-    @Output() save = new EventEmitter();
     @Output() clear = new EventEmitter();
+    @Output() save = new EventEmitter();
 
     onSave() {
         this.save.emit(this.room);
