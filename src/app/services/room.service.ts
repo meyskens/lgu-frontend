@@ -1,9 +1,9 @@
-﻿import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { Observable } from 'rxjs';
+﻿import {Injectable} from '@angular/core';
+import {Http, Headers, RequestOptions, Response} from '@angular/http';
+import {Observable} from 'rxjs';
 import 'rxjs/add/operator/map';
 
-import { AuthenticationService } from '../services/authentication.service';
+import {AuthenticationService} from '../services/authentication.service';
 import {_BACK_END_URL} from "../app.constants";
 import {Room} from "../models/room";
 
@@ -12,14 +12,14 @@ export class RoomService {
     errorHandler = error => console.error('RoomService error', error);
     error: string = '';
 
-    constructor(
-        private http: Http,
-        private authenticationService: AuthenticationService) {}
+    constructor(private http: Http,
+                private authenticationService: AuthenticationService) {
+    }
 
-    getRoomss(){
-        let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
+    getRoomss() {
+        let headers = new Headers({'Authorization': 'Bearer ' + this.authenticationService.token});
         // let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
-        let options = new RequestOptions({ headers: headers });
+        let options = new RequestOptions({headers: headers});
 
 
         //noinspection TypeScriptUnresolvedFunction
@@ -31,9 +31,9 @@ export class RoomService {
 
     getRooms(): Observable<Room[]> {
         // add authorization header with jwt token
-        let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
+        let headers = new Headers({'Authorization': 'Bearer ' + this.authenticationService.token});
         // let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
-        let options = new RequestOptions({ headers: headers });
+        let options = new RequestOptions({headers: headers});
 
         // get users from api
         //noinspection TypeScriptValidateTypes
@@ -43,8 +43,8 @@ export class RoomService {
 
 
     getRoomInfo(): Observable<Room[]> {
-        let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new Headers({'Authorization': 'Bearer ' + this.authenticationService.token});
+        let options = new RequestOptions({headers: headers});
 
         //noinspection TypeScriptValidateTypes
         return this.http.get(_BACK_END_URL + '/v1/room/info', options)
@@ -52,8 +52,8 @@ export class RoomService {
     }
 
     addRoom(room) {
-        let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new Headers({'Authorization': 'Bearer ' + this.authenticationService.token});
+        let options = new RequestOptions({headers: headers});
 
         const json = (room);
         //noinspection TypeScriptUnresolvedFunction
@@ -63,26 +63,31 @@ export class RoomService {
     }
 
     updateRoom(room) {
-        let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new Headers({'Authorization': 'Bearer ' + this.authenticationService.token});
+        let options = new RequestOptions({headers: headers});
 
         const json = ({
-            title: room.title,
-            url: room.url
+            _id: room._id,
+            name: room.name,
+            width: room.width,
+            height: room.height,
+            length: room.length,
+            location: room.location,
+            description: room.description
         });
         //noinspection TypeScriptUnresolvedFunction
-        return this.http.patch(_BACK_END_URL + `/v1/admin/rooms${room.id}`, json, options)
+        return this.http.put(_BACK_END_URL + `/v1/admin/rooms`, json, options)
             .toPromise()
             .catch(this.errorHandler);
     }
 
-    removeRoom(room){
-        let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
-        let options = new RequestOptions({ headers: headers });
+    removeRoom(room) {
+        let headers = new Headers({'Authorization': 'Bearer ' + this.authenticationService.token});
+        let options = new RequestOptions({headers: headers});
 
         // const json = (room);
         //noinspection TypeScriptUnresolvedFunction
-        return this.http.delete(_BACK_END_URL + `/v1/admin/rooms/` + room._id, options)
+        return this.http.delete(_BACK_END_URL + `/v1/admin/rooms/${room._id}`, options)
             .toPromise()
             .catch(this.errorHandler);
     }

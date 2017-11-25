@@ -1,11 +1,11 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
-import {SharedModule} from '../shared';
+// import 'rxjs/add/operator/toPromise';
 
+import {SharedModule} from '../shared';
 import {RoomComponent} from './room.component';
-import {RoomEditComponent} from "./room-edit/room-edit.component";
-import {RoomEditModule} from "./room-edit/room-edit.module";
-import {RoomListComponent} from "./room-list/room-list.component";
+import {RoomEditComponent} from "./room-edit.component";
+import {RoomListComponent} from "./room-list.component";
 
 
 const roomRouting: ModuleWithProviders = RouterModule.forChild([
@@ -27,7 +27,7 @@ const roomRouting: ModuleWithProviders = RouterModule.forChild([
         RoomListComponent
     ],
 
-    providers: [RoomEditModule]
+    providers: []
 })
 export class RoomModule {
 }
