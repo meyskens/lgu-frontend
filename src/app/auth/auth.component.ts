@@ -43,7 +43,7 @@ export class AuthComponent implements OnInit {
                     this.error = 'Username or password is incorrect';
                     this.isSubmitting = false;
                 }
-            });
+            }, error => this.error = error);
     }
 }
 
