@@ -1,0 +1,31 @@
+<div class="panel panel-primary">
+  <table class="table table-striped">
+    <tr>
+      <th>Reason</th>
+      <th>Room</th>
+      <th>User</th>
+    </tr>
+    <tr *ngFor="let reservatie of reservaties">
+      <td>
+        {{ reservatie.reason }}
+      </td>
+      <td>
+        {{ reservatie.room.name }}
+      </td>
+      <td>
+        {{ reservatie.user.username }}
+      </td>
+
+      <td>
+        <button (click)="onEdit(reservatie)" class="btn btn-primary">
+          <span class="glyphicon glyphicon-pencil"></span>
+          <span class="hidden-xs">Edit</span>
+        </button>
+        <button (click)="onRemove(reservatie)" class="btn btn-danger">
+          <span class="glyphicon glyphicon-trash"></span>
+          <span class="hidden-xs">Delete</span>
+        </button>
+      </td>
+    </tr>
+  </table>
+</div>

@@ -19,6 +19,8 @@ import {SchedulerModule} from "./scheduler/scheduler.module";
 import {SchedulerService} from "./services/scheduler.service";
 import {RoomModule} from "./room/room.module";
 import {RoomService} from "./services/room.service";
+import {ReservatieModule} from "./reservatie/reservatie.module";
+import {ReservatieService} from "./services/reservatie.service";
 
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: true });
 
@@ -36,11 +38,12 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
         InfoModule,
         AuthModule,
         RoomModule,
-
+        ReservatieModule,
         SchedulerModule
     ],
-    providers: [AuthenticationService, UserService, SchedulerService, RoomService],
+    providers: [AuthenticationService, UserService, SchedulerService, RoomService, ReservatieService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
+
 }

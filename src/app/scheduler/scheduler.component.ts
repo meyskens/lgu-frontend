@@ -21,56 +21,46 @@ export class SchedulerComponent implements AfterViewInit {
   error = '';
   title: String = '';
   isSubmitting: boolean = false;
-  appointments = new Array();
 
   constructor(private route: ActivatedRoute,
               private schedulerService: SchedulerService,
               private authenticationService: AuthenticationService) {}
 
   ngAfterViewInit(): void {
-    this.schedulerService.getReservaties()
-      .subscribe(reservaties => {
-        this.reservaties = reservaties;
-        for (let reservatie of this.reservaties) {
-          this.scheduler.beginAppointmentsUpdate();
-          this.scheduler.setAppointmentProperty(reservatie._id, 'resizable', false);
-          this.scheduler.setAppointmentProperty(reservatie._id, 'draggable', false);
-
-          if(localStorage.getItem('currentUser') != JSON.stringify(reservatie.user)) {
-            this.scheduler.setAppointmentProperty(reservatie._id, 'readOnly', true);
-          }
-
-          console.log("LOCALSTORAGE USER: " + localStorage.getItem('currentUser'));
-          console.log("RESERVATIE USER: " + JSON.stringify(reservatie.user));
-          this.scheduler.endAppointmentsUpdate();
-        }
-      });
-
     this.route.url.subscribe(data => {
       // Set a title for the page
       this.title = 'Reservaties';
+
       this.generateAppointments();
     });
   }
 
-  generateAppointments(): any {
+  generateAppointments() {
     this.schedulerService.getReservaties()
       .subscribe(reservaties => {
         this.reservaties = reservaties;
-        for (let reservatie of this.reservaties) {
+        for (let reservatie of reservaties) {
           let appointment = {
             id: reservatie._id,
             description: reservatie.reason,
             location: reservatie.room.name,
             subject: reservatie.user.firstName + " " + reservatie.user.lastName,
-            calendar: reservatie.room.name,
             start: new Date(reservatie.from),
-            end: new Date(reservatie.to)
+            end: new Date(reservatie.to),
+            room: reservatie.room.name,
+            resizable: false,
+            draggable: false,
+            readOnly: true
           };
           this.scheduler.addAppointment(appointment);
+          console.log(appointment);
         }
       });
   };
+
+  isLoggedIn() {
+    return this.authenticationService.isLoggedIn();
+  }
 
   source: any =
     {
@@ -80,12 +70,14 @@ export class SchedulerComponent implements AfterViewInit {
         { name: 'description', type: 'string' },
         { name: 'location', type: 'string' },
         { name: 'subject', type: 'string' },
-        { name: 'calendar', type: 'Room' },
+        { name: 'room', type: 'string' },
         { name: 'start', type: 'date', format: 'dd/MM/yyyy' },
-        { name: 'end', type: 'date', format: 'dd/MM/yyyy' }
+        { name: 'end', type: 'date', format: 'dd/MM/yyyy' },
+        { name: 'resizable', type: 'boolean' },
+        { name: 'draggable', type: 'boolean' },
+        { name: 'readOnly', type: 'boolean' }
       ],
-      id: 'id',
-      localData: this.appointments
+      id: 'id'
     };
   dataAdapter: any = new jqx.dataAdapter(this.source);
   date: any = new jqx.date();
@@ -97,12 +89,15 @@ export class SchedulerComponent implements AfterViewInit {
       description: "description",
       location: "location",
       subject: "subject",
-      resourceId: "calendar"
+      resourceId: "room",
+      resizable: "resizable",
+      draggable: "draggable",
+      readOnly: "readOnly"
     };
   resources: any =
     {
       colorScheme: "scheme05",
-      dataField: "calendar",
+      dataField: "room",
       source: new jqx.dataAdapter(this.source)
     };
   view: 'timelineWeekView';
@@ -111,41 +106,4 @@ export class SchedulerComponent implements AfterViewInit {
       { type: 'timelineWeekView', appointmentHeight: 40, timeSlotWidth: 30, showWeekends: true, timeRuler: { scale: "quarterHour", scaleStartHour: 9, scaleEndHour: 22 } },
       { type: 'timelineDayView', appointmentHeight: 40, timeSlotWidth: 30, showWeekends: true, timeRuler: { scale: "quarterHour", scaleStartHour: 9, scaleEndHour: 22 } }
     ];
-
-  // called when the dialog is craeted.
-  editDialogCreate = (dialog, fields, editAppointment) => {
-    // hide repeat option
-    fields.repeatContainer.hide();
-    // hide status option
-    fields.statusContainer.hide();
-    // hide timeZone option
-    fields.timeZoneContainer.hide();
-    // hide color option
-    fields.colorContainer.hide();
-    fields.subjectLabel.html("User");
-    fields.locationLabel.html("Room");
-    fields.fromLabel.html("Start");
-    fields.toLabel.html("End");
-    fields.resourceLabel.html("Calendar");
-
-  };
-
-  /**
-   * called when the dialog is closed.
-   * @param {Object} dialog - jqxWindow's jQuery object.
-   * @param {Object} fields - Object with all widgets inside the dialog.
-   * @param {Object} the selected appointment instance or NULL when the dialog is opened from cells selection.
-   */
-  editDialogClose = (dialog, fields, editAppointment) => {
-  };
-
-  /**
-   * called when a key is pressed while the dialog is on focus. Returning true or false as a result disables the built-in keyDown handler.
-   * @param {Object} dialog - jqxWindow's jQuery object.
-   * @param {Object} fields - Object with all widgets inside the dialog.
-   * @param {Object} the selected appointment instance or NULL when the dialog is opened from cells selection.
-   * @param {jQuery.Event Object} the keyDown event.
-   */
-  editDialogKeyDown = (dialog, fields, editAppointment, event) => {
-  };
 }
