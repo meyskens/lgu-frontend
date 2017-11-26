@@ -8,16 +8,22 @@
       </select>
     </div>
 
-    <!--<div class="col-md-4">
+    <div class="col-md-4">
+      <label for="reason">Reason</label>
+      <input id="reason" class="form-control" type="text" [(ngModel)]="reservatie.reason"
+             placeholder="Reason" style="width: 90%;">
+    </div>
+
+    <div class="col-md-4">
       <label for="from">Datum Van</label>
       <input id="from" class="form-control" type="date" [(ngModel)]="reservatie.from"
              placeholder="Datum Van" style="width: 90%;">
     </div>
     <div class="col-md-4">
       <label for="to">Datum Tot</label>
-      <input id="to" class="form-control" type="datetime-local" [(ngModel)]="reservatie.to"
+      <input id="to" class="form-control" type="date" [(ngModel)]="reservatie.to"
              placeholder="Datum Tot" style="width: 90%;">
-    </div>-->
+    </div>
 
     <br/>
     <div class="pull-right" style="margin-right: 50px">

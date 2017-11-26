@@ -11,6 +11,8 @@ export class ReservatieEditComponent {
   @Output() clear = new EventEmitter();
   @Output() save = new EventEmitter();
 
+  // user = JSON.parse(localStorage.getItem('currentUser'));
+
   onClear() {
     this.clear.emit();
   }

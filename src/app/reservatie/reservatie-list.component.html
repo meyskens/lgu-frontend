@@ -10,17 +10,22 @@
         {{ reservatie.reason }}
       </td>
       <td>
-        {{ reservatie.room.name }}
+        {{ reservatie.from }}
       </td>
       <td>
-        {{ reservatie.user.username }}
+        {{ reservatie.to }}
       </td>
+      <!--<td>-->
+        <!--<pre>-->
+        <!--{{ reservatie | json }}-->
+          <!--</pre>-->
+      <!--</td>-->
 
       <td>
-        <button (click)="onEdit(reservatie)" class="btn btn-primary">
-          <span class="glyphicon glyphicon-pencil"></span>
-          <span class="hidden-xs">Edit</span>
-        </button>
+        <!--<button (click)="onEdit(reservatie)" class="btn btn-primary">-->
+          <!--<span class="glyphicon glyphicon-pencil"></span>-->
+          <!--<span class="hidden-xs">Edit</span>-->
+        <!--</button>-->
         <button (click)="onRemove(reservatie)" class="btn btn-danger">
           <span class="glyphicon glyphicon-trash"></span>
           <span class="hidden-xs">Delete</span>

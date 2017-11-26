@@ -57,7 +57,7 @@ export class ReservatieService {
 
     const json = (reservatie);
     //noinspection TypeScriptUnresolvedFunction
-    return this.http.post(_BACK_END_URL + `/v1/admin/reservations`, json, options)
+    return this.http.post(_BACK_END_URL + `/v1/user/reservations`, json, options)
       .toPromise()
       .catch(this.errorHandler);
   }
