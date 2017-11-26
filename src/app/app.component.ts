@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { jqxSchedulerComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxscheduler';
 
 @Component({
   selector: 'app-root',
