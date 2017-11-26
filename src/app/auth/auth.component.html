@@ -1,43 +1,55 @@
 <div class="auth-page">
-  <div class="container page">
-    <div class="row">
+    <div class="container page">
+        <div class="row">
 
-      <div class="col-md-6 offset-md-3 col-xs-12">
-        <h1 class="text-xs-center">{{ title }}</h1>
+            <div class="col-md-6 offset-md-3 col-xs-12">
+                <h1 class="text-xs-center">{{ title }}</h1>
 
-        <form [formGroup]="authForm" (ngSubmit)="submitForm()">
-          <fieldset [disabled]="isSubmitting">
-            <fieldset class="form-group">
-              <input
-                formControlName="email"
-                placeholder="Email"
-                class="form-control form-control-lg"
-                type="text" required/>
-            </fieldset>
-            <fieldset class="form-group">
-              <input
-                formControlName="password"
-                placeholder="Password"
-                class="form-control form-control-lg"
-                type="password" required/>
-            </fieldset>
-            <button class="btn btn-lg btn-primary pull-xs-right" type="submit">
-              {{ title }} Login
-            </button>
-          </fieldset>
-          <h1 *ngIf="!authForm.valid">Please Fill The Form!</h1>
-        </form>
+                <form [formGroup]="authForm" (ngSubmit)="submitForm()">
+                    <fieldset [disabled]="isSubmitting">
+                        <fieldset class="form-group">
+                            <input
+                                    formControlName="email"
+                                    placeholder="Email"
+                                    class="form-control form-control-lg"
+                                    type="text" required/>
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <input
+                                    formControlName="password"
+                                    placeholder="Password"
+                                    class="form-control form-control-lg"
+                                    type="password" required/>
+                        </fieldset>
+                        <button class="btn btn-lg btn-primary pull-xs-right" type="submit">
+                            {{ title }} Login
+                        </button>
+                    </fieldset>
+                    <h1 *ngIf="!authForm.valid">Please Fill The Form!</h1>
+                </form>
 
-        <li *ngIf="error != ''" class="nav-item">
-          <a class="nav-link"
-             routerLink="/room"
-             routerLinkActive="active">
-            {{error}}
-          </a>
-        </li>
+                <!--<form (submit)="submitForm()">-->
+                <!--<div class="form-group">-->
+                <!--<label for="email">Email</label>-->
+                <!--<input type="email" class="form-control" id="email"-->
+                <!--[(ngModel)]="email" name="email" required>-->
+                <!--<label for="password">Password</label>-->
+                <!--<input type="password" class="form-control" id="password"-->
+                <!--[(ngModel)]="password" name="password" required>-->
 
-      </div>
+                <!--</div>-->
+                <!--<button type="submit" class="btn btn-primary">Login</button>-->
+                <!--</form>-->
 
+                <li *ngIf="error != ''" class="nav-item">
+                    <a class="nav-link"
+                       routerLink="/room"
+                       routerLinkActive="active">
+                        {{error}}
+                    </a>
+                </li>
+
+            </div>
+        </div>
     </div>
-  </div>
 </div>

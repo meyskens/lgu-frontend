@@ -8,19 +8,35 @@ import {AuthenticationService} from "./authentication.service";
 
 @Injectable()
 export class SchedulerService {
-    constructor(
-      private http: Http,
-      private authenticationService: AuthenticationService) {
-    }
+  errorHandler = error => console.error('BookmarkService error', error);
+  error: string = '';
 
-    getReservaties(): Observable<Reservatie[]> {
-      // add authorization header with jwt token
-      let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
-      let options = new RequestOptions({ headers: headers });
+  constructor(
+    private http: Http,
+    private authenticationService: AuthenticationService) {
+  }
 
-      // get reservations from api
-      //noinspection TypeScriptValidateTypes
-      return this.http.get(_BACK_END_URL + '/v1/reservations/', options)
-        .map((response: Response) => response.json());
-    }
+  getReservaties(): Observable<Reservatie[]> {
+    // add authorization header with jwt token
+    let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
+    let options = new RequestOptions({ headers: headers });
+
+    // get reservations from api
+    //noinspection TypeScriptValidateTypes
+    return this.http.get(_BACK_END_URL + '/v1/reservations/', options)
+      .map((response: Response) => response.json());
+  }
+
+  getAllReservaties() {
+    let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
+    // let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
+    let options = new RequestOptions({ headers: headers });
+
+
+    //noinspection TypeScriptUnresolvedFunction
+    return this.http.get(_BACK_END_URL + '/v1/reservations/', options)
+      .toPromise()
+      .then(response => response.json())
+      .catch(error => this.error = error)
+  }
 }

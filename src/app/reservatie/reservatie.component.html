@@ -1,0 +1,8 @@
+<div class="container">
+  <h1 class="text-xs-center">My Reservations</h1>
+
+  <reservatie-edit [reservatie]="editableReservatie" [rooms]="rooms"
+             (save)="save($event)" (clear)="clear()"></reservatie-edit>
+  <reservatie-list [reservaties]="reservaties"
+             (edit)="edit($event)" (remove)="remove($event)"></reservatie-list>
+</div>

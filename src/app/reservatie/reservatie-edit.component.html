@@ -1,0 +1,41 @@
+<div class="panel panel-primary">
+  <div class="panel-body">
+
+    <div class="col-md-4">
+      <label for="room">Room Name</label>
+      <select id="room" [(ngModel)]="reservatie.room" class="form-control">
+        <option *ngFor="let room of rooms" [ngValue]="room">{{room.name}}</option>
+      </select>
+    </div>
+
+    <div class="col-md-4">
+      <label for="reason">Reason</label>
+      <input id="reason" class="form-control" type="text" [(ngModel)]="reservatie.reason"
+             placeholder="Reason" style="width: 90%;">
+    </div>
+
+    <div class="col-md-4">
+      <label for="from">Datum Van</label>
+      <input id="from" class="form-control" type="date" [(ngModel)]="reservatie.from"
+             placeholder="Datum Van" style="width: 90%;">
+    </div>
+    <div class="col-md-4">
+      <label for="to">Datum Tot</label>
+      <input id="to" class="form-control" type="date" [(ngModel)]="reservatie.to"
+             placeholder="Datum Tot" style="width: 90%;">
+    </div>
+
+    <br/>
+    <div class="pull-right" style="margin-right: 50px">
+      <br/>
+      <button (click)="onSave()" class="btn btn-primary">
+        <span class="glyphicon glyphicon-ok"></span>
+        <span class="hidden-xs">Save</span>
+      </button>
+      <button (click)="onClear()" class="btn btn-warning">
+        <span class="glyphicon glyphicon-remove"></span>
+        <span class="hidden-xs">Clear</span>
+      </button>
+    </div>
+  </div>
+</div>
