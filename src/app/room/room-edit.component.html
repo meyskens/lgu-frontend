@@ -1,0 +1,51 @@
+<div class="panel panel-primary">
+    <div class="panel-body">
+
+        <div class="col-md-4">
+            <label for="name">Name</label>
+            <input id="name" class="form-control" type="text" [(ngModel)]="room.name"
+                   placeholder="Room Name" style="width: 90%;">
+        </div>
+
+        <div class="col-md-4">
+            <label for="location">Location</label>
+            <input id="location" class="form-control" type="text" [(ngModel)]="room.location"
+                   placeholder="Room Description" style="width: 90%;">
+        </div>
+        <div class="col-md-4">
+            <label for="description">Description</label>
+            <input id="description" class="form-control" type="text" [(ngModel)]="room.description"
+                   placeholder="Room Description" style="width: 90%;">
+        </div>
+
+        <div class="col-md-4">
+            <label for="width">Width</label>
+            <input id="width" class="form-control" type="number" [(ngModel)]="room.width"
+                   placeholder="Room Width" style="width: 90%;">
+        </div>
+        <div class="col-md-4">
+            <label for="height">Height</label>
+            <input id="height" class="form-control" type="number" [(ngModel)]="room.height"
+                   placeholder="Room Height" style="width: 90%;">
+        </div>
+        <div class="col-md-4">
+            <label for="length">Length</label>
+            <input id="length" class="form-control" type="number" [(ngModel)]="room.length"
+                   placeholder="Room Length" style="width: 90%;">
+        </div>
+
+
+        <br/>
+        <div class="pull-right" style="margin-right: 50px">
+            <br/>
+            <button (click)="onSave()" class="btn btn-primary">
+                <span class="glyphicon glyphicon-ok"></span>
+                <span class="hidden-xs">Save</span>
+            </button>
+            <button (click)="onClear()" class="btn btn-warning">
+                <span class="glyphicon glyphicon-remove"></span>
+                <span class="hidden-xs">Clear</span>
+            </button>
+        </div>
+    </div>
+</div>

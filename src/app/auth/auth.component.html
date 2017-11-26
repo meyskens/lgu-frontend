@@ -12,20 +12,20 @@
                 formControlName="email"
                 placeholder="Email"
                 class="form-control form-control-lg"
-                type="text" />
+                type="text" required/>
             </fieldset>
             <fieldset class="form-group">
               <input
                 formControlName="password"
                 placeholder="Password"
                 class="form-control form-control-lg"
-                type="password" />
+                type="password" required/>
             </fieldset>
             <button class="btn btn-lg btn-primary pull-xs-right" type="submit">
               {{ title }} Login
             </button>
           </fieldset>
-
+          <h1 *ngIf="!authForm.valid">Please Fill The Form!</h1>
         </form>
 
         <li *ngIf="error != ''" class="nav-item">

@@ -3,12 +3,8 @@ import {RoomService} from "../services/room.service";
 
 @Component({
     selector: 'room-app',
-    template: `
-    <room-edit [room]="editableRoom"
-      (save)="save($event)" (clear)="clear()"></room-edit>
-    <room-list [rooms]="rooms"
-      (edit)="edit($event)" (remove)="remove($event)"></room-list>
-  `,
+    templateUrl: './room.component.html',
+
 })
 export class RoomComponent {
 

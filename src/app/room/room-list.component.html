@@ -1,0 +1,43 @@
+<div class="panel panel-primary">
+    <table class="table table-striped">
+        <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Width</th>
+            <th>Height</th>
+            <th>Length</th>
+            <th>Description</th>
+        </tr>
+        <tr *ngFor="let room of rooms">
+            <td>
+                {{ room.name }}
+            </td>
+            <td>
+                {{ room.location }}
+            </td>
+            <td>
+                {{ room.width }}
+            </td>
+            <td>
+                {{ room.height }}
+            </td>
+            <td>
+                {{ room.length }}
+            </td>
+            <td>
+                {{room.description}}
+            </td>
+
+            <td>
+                <button (click)="onEdit(room)" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    <span class="hidden-xs">Edit</span>
+                </button>
+                <button (click)="onRemove(room)" class="btn btn-danger">
+                    <span class="glyphicon glyphicon-trash"></span>
+                    <span class="hidden-xs">Delete</span>
+                </button>
+            </td>
+        </tr>
+    </table>
+</div>

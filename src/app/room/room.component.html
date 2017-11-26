@@ -1,0 +1,6 @@
+<h1 class="text-xs-center">Room Management</h1>
+
+<room-edit [room]="editableRoom"
+           (save)="save($event)" (clear)="clear()"></room-edit>
+<room-list [rooms]="rooms"
+           (edit)="edit($event)" (remove)="remove($event)"></room-list>

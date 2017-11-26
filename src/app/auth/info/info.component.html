@@ -1,32 +1,83 @@
 <div class="auth-page">
     <div class="container page">
-        <div class="row">
+        <div class="container">
+            <h1 class="text-xs-center">{{ title }}</h1>
 
-            <div class="container">
-                <h1 class="text-xs-center">{{ title }}</h1>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Firstname</th>
-                        <th>Lastname</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Admin</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>{{user._id}}</td>
-                        <td>{{user.firstName}}</td>
-                        <td>{{user.lastName}}</td>
-                        <td>{{user.email}}</td>
-                        <td>{{user.phone}}</td>
-                        <td>{{user.isAdmin}}</td>
-                    </tr>
-                    </tbody>
-                </table>
+            <div class="row">
+                <div class="col-md-5  toppad  pull-right col-md-offset-3 ">
+                    <p class=" text-info">{{ today | date: 'MMM dd,yyyy,  hh:mm a'}}</p>
+                    <br>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
+
+
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{{user.firstName}} {{user.lastName}}</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-3 col-lg-3 " align="center"><img alt="User Pic"
+                                                                                    src="https://d30y9cdsu7xlg0.cloudfront.net/png/629496-200.png"
+                                                                                    class="img-circle img-responsive">
+                                </div>
+                                <div class=" col-md-9 col-lg-9 ">
+                                    <table class="table table-user-information">
+                                        <tbody>
+                                        <tr>
+                                            <td>Email</td>
+                                            <td><a href="mailto:{{user.email}}">{{user.email}}</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Phone Number</td>
+                                            <td><a href="tel:{{user.phone}}">{{user.phone}}</a></td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <a data-original-title="Edit this user" data-toggle="tooltip" type="button"
+                               class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                            <span class="pull-right">
+                            <a data-original-title="Remove this user" data-toggle="tooltip" type="button"
+                               class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+                        </span>
+                        </div>
+
+                    </div>
+                </div>
             </div>
+        </div>
+
+        <div class="row">
+            <!--<div class="container">-->
+                <!--<h1 class="text-xs-center">{{ title }}</h1>-->
+                <!--<table class="table">-->
+                    <!--<thead>-->
+                    <!--<tr>-->
+                        <!--<th>Id</th>-->
+                        <!--<th>Firstname</th>-->
+                        <!--<th>Lastname</th>-->
+                        <!--<th>Email</th>-->
+                        <!--<th>Phone</th>-->
+                        <!--<th>Admin</th>-->
+                    <!--</tr>-->
+                    <!--</thead>-->
+                    <!--<tbody>-->
+                    <!--<tr>-->
+                        <!--<td>{{user._id}}</td>-->
+                        <!--<td>{{user.firstName}}</td>-->
+                        <!--<td>{{user.lastName}}</td>-->
+                        <!--<td>{{user.email}}</td>-->
+                        <!--<td>{{user.phone}}</td>-->
+                        <!--<td>{{user.isAdmin}}</td>-->
+                    <!--</tr>-->
+                    <!--</tbody>-->
+                <!--</table>-->
+            <!--</div>-->
         </div>
     </div>
 </div>

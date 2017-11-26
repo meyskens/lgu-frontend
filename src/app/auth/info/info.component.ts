@@ -14,6 +14,7 @@ import {UserService} from "../../services/user.service";
 export class InfoComponent implements OnInit {
     user: User[] = [];
 
+    today: number = Date.now();
 
     model: any = {};
     error = '';
