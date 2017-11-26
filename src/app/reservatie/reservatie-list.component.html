@@ -1,11 +1,16 @@
 <div class="panel panel-primary">
   <table class="table table-striped">
     <tr>
-      <th>Reason</th>
       <th>Room</th>
+      <th>Reason</th>
+      <th>From</th>
+      <th>To</th>
       <th>User</th>
     </tr>
     <tr *ngFor="let reservatie of reservaties">
+      <td>
+        {{ reservatie.room.name }}
+      </td>
       <td>
         {{ reservatie.reason }}
       </td>
@@ -15,17 +20,11 @@
       <td>
         {{ reservatie.to }}
       </td>
-      <!--<td>-->
-        <!--<pre>-->
-        <!--{{ reservatie | json }}-->
-          <!--</pre>-->
-      <!--</td>-->
+      <td>
+        {{ reservatie.user.email }}
+      </td>
 
       <td>
-        <!--<button (click)="onEdit(reservatie)" class="btn btn-primary">-->
-          <!--<span class="glyphicon glyphicon-pencil"></span>-->
-          <!--<span class="hidden-xs">Edit</span>-->
-        <!--</button>-->
         <button (click)="onRemove(reservatie)" class="btn btn-danger">
           <span class="glyphicon glyphicon-trash"></span>
           <span class="hidden-xs">Delete</span>

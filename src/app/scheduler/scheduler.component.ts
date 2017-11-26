@@ -30,49 +30,59 @@ export class SchedulerComponent implements AfterViewInit {
 
         let appointment1 = {
             id: "id1",
-            description: "George brings projector for presentations.",
-            location: "",
-            subject: "Bla bla ",
-            calendar: "Room 4",
+            description: "Verjaardagsfeest.",
+            location: "Bar",
+            subject: "Stijn Bruers",
+            room: "Bar",
             start: new Date(2017, 10, 26, 9, 0, 0),
-            end: new Date(2017, 10, 26, 16, 0, 0)
+            end: new Date(2017, 10, 26, 16, 0, 0),
+            resizable: false,
+            draggable: false,
+            readOnly: true
         };
         let appointment2 = {
             id: "id2",
-            description: "George brings projector for presentations.",
-            location: "",
-            subject: "Bla bla ",
-            calendar: "Room 2",
+            description: "Dansles.",
+            location: "Spiegelzaal",
+            subject: "Stijn Bruers",
+            room: "Spiegelzaal",
             start: new Date(2017, 10, 25, 9, 0, 0),
-            end: new Date(2017, 10, 25, 16, 0, 0)
+            end: new Date(2017, 10, 25, 16, 0, 0),
+            resizable: false,
+            draggable: false,
+            readOnly: true
         };
 
         let appointment3 = {
             id: "id3",
-            description: "George brings projector for presentations.",
-            location: "",
-            subject: "Bla bla ",
-            calendar: "Room 3",
+            description: "Repetitie koor.",
+            location: "Grote Studio",
+            subject: "Stijn Bruers",
+            room: "Grote Studio",
             start: new Date(2017, 10, 24, 9, 0, 0),
-            end: new Date(2017, 10, 24, 16, 0, 0)
+            end: new Date(2017, 10, 24, 16, 0, 0),
+            resizable: false,
+            draggable: false,
+            readOnly: true
         };
 
         let appointment4 = {
             id: "id4",
-            description: "George brings projector for presentations.",
-            location: "",
-            subject: "Bla bla ",
-            calendar: "BEMT Japan",
+            description: "Repetitie band.",
+            location: "Kleine Studio",
+            subject: "Stijn Bruers",
+            room: "Kleine Studio",
             start: new Date(2017, 10, 22, 9, 0, 0),
-            end: new Date(2017, 10, 23, 16, 0, 0)
+            end: new Date(2017, 10, 23, 16, 0, 0),
+            resizable: false,
+            draggable: false,
+            readOnly: true
         };
 
         appointments.push(appointment1);
+        appointments.push(appointment2);
         appointments.push(appointment3);
         appointments.push(appointment4);
-        // console.log(appointment1);
-        appointments.push(appointment2);
-        // console.log(appointment2);
 
         this.schedulerService.getReservaties()
             .subscribe(reservaties => {
@@ -82,18 +92,17 @@ export class SchedulerComponent implements AfterViewInit {
                         id: reservatie._id,
                         description: reservatie.reason,
                         location: reservatie.room.location,
-                        subject: reservatie.reason,
-                        calendar: reservatie.room.name,
+                        subject: reservatie.user.firstName + " " + reservatie.user.lastName,
                         room: reservatie.room.name,
                         start: new Date(reservatie.from),
                         end: new Date(reservatie.to),
-                        // resizable: false,
-                        // draggable: false,
-                        // readOnly: true
+                        resizable: false,
+                        draggable: false,
+                        readOnly: true
                     };
                     appointments.push(appointment);
                     this.scheduler.addAppointment(appointment);
-                    // console.log(appointment);
+                    console.log(appointment);
                 }
             });
 
@@ -110,16 +119,19 @@ export class SchedulerComponent implements AfterViewInit {
                 {name: 'description', type: 'string'},
                 {name: 'location', type: 'string'},
                 {name: 'subject', type: 'string'},
-                {name: 'calendar', type: 'string'},
+                {name: 'room', type: 'string'},
                 {name: 'start', type: 'date'},
-                {name: 'end', type: 'date'}
+                {name: 'end', type: 'date'},
+                {name: 'resizable', type: 'boolean'},
+                {name: 'draggable', type: 'boolean'},
+                {name: 'readOnly', type: 'boolean'}
             ],
             id: 'id',
             localData: this.generateAppointments()
         };
 
     dataAdapter: any = new jqx.dataAdapter(this.source);
-    date: any = new jqx.date(2017, 11, 26);
+    date: any = new jqx.date();
 
     appointmentDataFields: any =
         {
@@ -129,13 +141,16 @@ export class SchedulerComponent implements AfterViewInit {
             description: "description",
             location: "location",
             subject: "subject",
-            resourceId: "calendar"
+            resourceId: "room",
+            resizable: "resizable",
+            draggable: "draggable",
+            readOnly: "readOnly"
         };
 
     resources: any =
         {
             colorScheme: "scheme05",
-            dataField: "calendar",
+            dataField: "room",
             source: new jqx.dataAdapter(this.source)
         };
 
@@ -148,5 +163,9 @@ export class SchedulerComponent implements AfterViewInit {
 
     isLoggedIn() {
         return this.authenticationService.isLoggedIn();
+    }
+
+    isAdmin() {
+        return this.authenticationService.isAdmin();
     }
 }

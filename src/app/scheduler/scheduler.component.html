@@ -1,7 +1,7 @@
 <div class="app-scheduler-page">
   <div class="container page">
     <div class="row">
-      <a *ngIf="isLoggedIn()" class="nav-link btn btn-primary"
+      <a *ngIf="isLoggedIn() && isAdmin()" class="nav-link btn btn-primary"
          routerLink="/reservaties"
          routerLinkActive="active">
         <span class="glyphicon glyphicon-plus"></span>

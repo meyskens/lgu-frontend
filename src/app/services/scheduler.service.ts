@@ -23,7 +23,7 @@ export class SchedulerService {
 
     // get reservations from api
     //noinspection TypeScriptValidateTypes
-    return this.http.get(_BACK_END_URL + '/v1/reservations/', options)
+    return this.http.get(_BACK_END_URL + '/v1/admin/reservations/', options)
       .map((response: Response) => response.json());
   }
 
@@ -34,7 +34,7 @@ export class SchedulerService {
 
 
     //noinspection TypeScriptUnresolvedFunction
-    return this.http.get(_BACK_END_URL + '/v1/reservations/', options)
+    return this.http.get(_BACK_END_URL + '/v1/admin/reservations/', options)
       .toPromise()
       .then(response => response.json())
       .catch(error => this.error = error)
